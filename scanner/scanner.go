@@ -13,6 +13,9 @@ func init() {
 	skipDirs = []string{"vendor", ".git"}
 }
 
+// Scanner constructor
+// It's execution can be terminated via context
+// returns scanned paths channel and errors channel
 func New(ctx context.Context, pathsToScan []string) (<-chan string, <-chan error) {
 	paths := make(chan string)
 	errors := make(chan error, 1)

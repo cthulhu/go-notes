@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+// Parser constructor
+// Returns parser object
 func New(fixMe, todo, optimize bool) *Parser {
 	if (fixMe || todo || optimize) == false {
 		fixMe = true
@@ -30,6 +32,7 @@ func init() {
 	fset = token.NewFileSet() // positions are relative to fset
 }
 
+// Parses file by file path
 func (p *Parser) Parse(file string) error {
 	f, err := parser.ParseFile(fset, file, nil, parser.ParseComments)
 	if err != nil {
@@ -50,6 +53,9 @@ func (p *Parser) isNote(node string) bool {
 		strings.HasPrefix(node, "FIXME:") && p.fixMe ||
 		strings.HasPrefix(node, "OPTIMIZE:") && p.optimize
 }
+
+// Aggregates parsed files information
+// Returns preformated string
 func (p *Parser) Aggregate() string {
 	var result string
 	buf := bytes.NewBufferString(result)
