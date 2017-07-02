@@ -7,6 +7,12 @@ import (
 	"strings"
 )
 
+var skipDirs []string
+
+func init() {
+	skipDirs = []string{"vendor", ".git"}
+}
+
 func New(ctx context.Context, pathsToScan []string) (<-chan string, <-chan error) {
 	paths := make(chan string)
 	errors := make(chan error, 1)
@@ -39,7 +45,10 @@ func scanPaths(pathsToScan []string) ([]string, error) {
 			if err != nil {
 				return err
 			}
-			if (!info.IsDir() && strings.HasSuffix(path, ".go")) && !contains(pathsToScan, path) {
+			if info.IsDir() && contains(skipDirs, path) {
+				return filepath.SkipDir
+			}
+			if !info.IsDir() && strings.HasSuffix(path, ".go") {
 				newPathsToScan = append(newPathsToScan, path)
 			}
 			return nil
@@ -50,7 +59,7 @@ func scanPaths(pathsToScan []string) ([]string, error) {
 
 func contains(paths []string, path string) bool {
 	for _, p := range paths {
-		if p == path {
+		if strings.Contains(path, p) {
 			return true
 		}
 	}

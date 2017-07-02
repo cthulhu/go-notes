@@ -43,7 +43,7 @@ func main() {
 	defer cancel()
 
 	paths, scannerErrors := scanner.New(ctx, args)
-	p := parser.New(*fixme, *optimize, *todo)
+	p := parser.New(*fixme, *todo, *optimize)
 filesLoop:
 	for {
 		select {
