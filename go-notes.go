@@ -22,13 +22,13 @@ Options:
   -f - FIXME annotations
   -o - OPTIMIZE annotations
   -t - TODO annotations
-
 `
 
 var (
 	fixme    = flag.Bool("f", false, "FIXME annotations")
 	optimize = flag.Bool("o", false, "OPTIMIZE annotations")
 	todo     = flag.Bool("t", false, "TODO annotations")
+	custom   = flag.String("c", "", "custom annotation, for example BUG or BAD SMELL")
 )
 
 func main() {
@@ -43,7 +43,7 @@ func main() {
 	defer cancel()
 
 	paths, scannerErrors := scanner.New(ctx, args)
-	p := parser.New(*fixme, *todo, *optimize)
+	p := parser.New(*fixme, *todo, *optimize, *custom)
 filesLoop:
 	for {
 		select {
