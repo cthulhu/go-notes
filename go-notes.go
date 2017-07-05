@@ -22,7 +22,7 @@ Options:
   -f - FIXME annotations
   -o - OPTIMIZE annotations
   -t - TODO annotations
-  -c CUSTOM - custom annotation lable
+  -c CUSTOM - custom annotation label
   -format count - output format aggregated counts
   -format list - output format list with files and annotations (default)
 `

@@ -11,7 +11,7 @@ CLI tool similar to "rake notes" from Ruby On Rails
 
     Usage: go-notes [flags] <Go file or directory> ...
 
-    Without options generates all the note types. Default are:
+    Without options generates all the note types. Defaults are:
 
     // FIXME    - call to fix something
     // OPTIMIZE - call for a refactoring
@@ -21,6 +21,6 @@ CLI tool similar to "rake notes" from Ruby On Rails
       -f - FIXME annotations
       -o - OPTIMIZE annotations
       -t - TODO annotations
-      -c CUSTOM - custom annotation lable
+      -c CUSTOM - custom annotation label
       -format count - output format aggregated counts
       -format list - output format list with files and annotations (default)
