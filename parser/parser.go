@@ -5,18 +5,19 @@ import (
 	"fmt"
 	"go/parser"
 	"go/token"
+	"strconv"
 	"strings"
 )
 
 // New - method to create a parser
 // Returns parser object
-func New(fixMe, todo, optimize bool, custom string) *Parser {
+func New(fixMe, todo, optimize bool, custom, format string) *Parser {
 	if (fixMe || todo || optimize) == false && custom == "" {
 		fixMe = true
 		todo = true
 		optimize = true
 	}
-	return &Parser{fixMe, todo, optimize, custom, make(notesPerFile)}
+	return &Parser{fixMe, todo, optimize, custom, format, make(notesPerFile)}
 }
 
 type notesPerFile map[string][]string
@@ -24,7 +25,7 @@ type notesPerFile map[string][]string
 // Parser - parses files and collects information about annotations
 type Parser struct {
 	fixMe, todo, optimize bool
-	custom                string
+	custom, format        string
 	notesPerFile
 }
 
@@ -60,9 +61,15 @@ func (p *Parser) isNote(node string) bool {
 // Aggregate - parsed files information
 // Returns preformated string
 func (p *Parser) Aggregate() string {
+	if p.format == "list" {
+		return p.aggregateList()
+	}
+	return p.aggregateCount()
+}
+
+func (p *Parser) aggregateList() string {
 	var result string
 	buf := bytes.NewBufferString(result)
-
 	for file, notes := range p.notesPerFile {
 		if len(notes) == 0 {
 			continue
@@ -74,4 +81,45 @@ func (p *Parser) Aggregate() string {
 		fmt.Fprintln(buf, "")
 	}
 	return buf.String()
+}
+
+func (p *Parser) aggregateCount() string {
+	var result string
+	buf := bytes.NewBufferString(result)
+	countsPerType := make(map[string]int)
+	for _, notes := range p.notesPerFile {
+		if len(notes) == 0 {
+			continue
+		}
+		for _, note := range notes {
+			countsPerType[p.noteType(note)]++
+		}
+	}
+	fields := []string{"TODO", "FIXME", "OPTIMIZE"}
+	if p.custom != "" {
+		fields = append(fields, p.custom)
+	}
+	values := []string{}
+	for _, field := range fields {
+		values = append(values, strconv.Itoa(countsPerType[field]))
+	}
+	fmt.Fprintln(buf, strings.Join(fields, ","))
+	fmt.Fprintln(buf, strings.Join(values, ","))
+	return buf.String()
+}
+
+func (p *Parser) noteType(note string) string {
+	if strings.HasPrefix(note, "TODO:") {
+		return "TODO"
+	}
+	if strings.HasPrefix(note, "FIXME:") {
+		return "FIXME"
+	}
+	if strings.HasPrefix(note, "OPTIMIZE:") {
+		return "OPTIMIZE"
+	}
+	if strings.HasPrefix(note, fmt.Sprintf("%s:", p.custom)) {
+		return p.custom
+	}
+	return ""
 }

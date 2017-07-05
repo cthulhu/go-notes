@@ -21,3 +21,6 @@ CLI tool similar to "rake notes" from Ruby On Rails
       -f - FIXME annotations
       -o - OPTIMIZE annotations
       -t - TODO annotations
+      -c CUSTOM - custom annotation lable
+      -format count - output format aggregated counts
+      -format list - output format list with files and annotations (default)

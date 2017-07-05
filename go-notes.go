@@ -22,6 +22,9 @@ Options:
   -f - FIXME annotations
   -o - OPTIMIZE annotations
   -t - TODO annotations
+  -c CUSTOM - custom annotation lable
+  -format count - output format aggregated counts
+  -format list - output format list with files and annotations (default)
 `
 
 var (
@@ -29,6 +32,7 @@ var (
 	optimize = flag.Bool("o", false, "OPTIMIZE annotations")
 	todo     = flag.Bool("t", false, "TODO annotations")
 	custom   = flag.String("c", "", "custom annotation, for example BUG or BAD SMELL")
+	format   = flag.String("format", "list", "output format")
 )
 
 func main() {
@@ -43,7 +47,7 @@ func main() {
 	defer cancel()
 
 	paths, scannerErrors := scanner.New(ctx, args)
-	p := parser.New(*fixme, *todo, *optimize, *custom)
+	p := parser.New(*fixme, *todo, *optimize, *custom, *format)
 filesLoop:
 	for {
 		select {
