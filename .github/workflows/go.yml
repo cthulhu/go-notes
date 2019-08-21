@@ -18,7 +18,8 @@ jobs:
 
     - name: Get dependencies
       run: |
-        go get -v  -d ./...
+        go get -v -d ./...
+        go get -u github.com/onsi/ginkgo
 
     - name: Test
       run: ginkgo -r .
