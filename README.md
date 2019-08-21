@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/cthulhu/go-notes.svg?branch=master)](https://travis-ci.org/cthulhu/go-notes)  [![Goreport](https://goreportcard.com/badge/github.com/cthulhu/go-notes)](https://goreportcard.com/report/github.com/cthulhu/go-notes) [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/cthulhu/go-notes/master/LICENSE)
+[![Actions Status](https://github.com/cthulhu/go-notes/workflows/Go/badge.svg)](https://github.com/cthulhu/go-notes/actions)
+  [![Goreport](https://goreportcard.com/badge/github.com/cthulhu/go-notes)](https://goreportcard.com/report/github.com/cthulhu/go-notes) [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/cthulhu/go-notes/master/LICENSE)
 
 # go-notes
 CLI tool similar to "rake notes" from Ruby On Rails

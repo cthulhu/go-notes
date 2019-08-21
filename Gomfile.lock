@@ -1,2 +1,0 @@
-gom 'github.com/onsi/ginkgo/ginkgo', :commit => '1bf4577518778932e44c2fb955fd5c7f03f25d96'
-gom 'github.com/onsi/gomega', :commit => 'f9b2e15b86f3d6dd556700ffbaa4feee86745028'
