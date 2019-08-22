@@ -18,11 +18,10 @@ jobs:
 
     - name: Get dependencies
       run: |
-        go get -v -d ./...
-        go get -u github.com/onsi/ginkgo
+        go get -v -d ./... && go get -u github.com/onsi/ginkgo
 
     - name: Test
-      run: $GOPATH/bin/ginkgo -r .
+      run: ginkgo -r .
 
     - name: Build
       run: go build -v .
