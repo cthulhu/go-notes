@@ -22,7 +22,7 @@ jobs:
         go get -u github.com/onsi/ginkgo
 
     - name: Test
-      run: ginkgo -r .
+      run: $GOPATH/bin/ginkgo -r .
 
     - name: Build
       run: go build -v .
