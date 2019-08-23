@@ -23,7 +23,7 @@ jobs:
         gobin github.com/onsi/ginkgo
 
     - name: Test
-      run: ginkgo -r .
+      run: go test ./...
 
     - name: Build
       run: go build -v .
