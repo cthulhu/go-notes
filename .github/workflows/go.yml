@@ -19,8 +19,6 @@ jobs:
     - name: Get dependencies
       run: |
         go get -v -d ./...
-        GO111MODULE=off go get -u github.com/myitcv/gobin
-        gobin github.com/onsi/ginkgo
 
     - name: Test
       run: go test ./...
